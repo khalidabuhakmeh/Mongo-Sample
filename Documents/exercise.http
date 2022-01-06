@@ -1,0 +1,21 @@
+### Get latest 10 documents in the "People" collection
+
+GET https://localhost:7181/
+
+### Create a new person
+
+POST https://localhost:7181/person
+Content-Type: application/json
+
+{
+  "Name" : "Khalid",
+  "Age" : 38
+}
+
+> {% client.global.set('id', response.body.id) %}
+
+### Get newly created person
+
+GET https://localhost:7181/person/{{id}}
+
+> {% client.log(JSON.stringify(response.body)) %}
