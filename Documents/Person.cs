@@ -8,5 +8,7 @@ public class Person
     public string? Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public int Age { get; set; }
+    // serialize dates into readable human format
+    [BsonRepresentation(BsonType.String)]
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
 }
