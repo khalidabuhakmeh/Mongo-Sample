@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Documents;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -25,8 +24,9 @@ app.Path("/", root =>
 app.Run();
 
 // Endpoints
-async Task<IResult> Root(IMongoCollection<Person> people)  {
-    Expression<Func<Person, bool>> filter = p => true;
+async Task<IResult> Root(IMongoCollection<Person> people)
+{
+    var filter = Builders<Person>.Filter.Empty;
 
     var latest = await people
         .Find(filter)
@@ -59,7 +59,7 @@ async Task<IResult> GetPerson(IMongoCollection<Person> people, string id)
 {
     if (!ObjectId.TryParse(id, out _))
         return BadRequest();
-
+    
     var person = await people.Find(p => p.Id == id).SingleAsync();
 
     return person is { }
